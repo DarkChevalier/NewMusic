@@ -11,7 +11,7 @@ import com.sunzhibin.newmusic.base.view.IBaseView;
  * Created by sunzhibin on 2018/1/2.
  */
 
-public class BaseMVPProxy<V extends IBaseView, P extends IBasePresenter<V>>
+public class BaseMvpProxy<V extends IBaseView, P extends IBasePresenter<V>>
         implements IPresenterProxyInterface<V, P> {
     /**
      * 获取onSaveInstanceState中bundle的key
@@ -25,7 +25,7 @@ public class BaseMVPProxy<V extends IBaseView, P extends IBasePresenter<V>>
     private Bundle mBundle;
     private boolean mIsAttchView;
 
-    public BaseMVPProxy(IPresenterFactory<V, P> mPresenterFactory) {
+    public BaseMvpProxy(IPresenterFactory<V, P> mPresenterFactory) {
         this.mPresenterFactory = mPresenterFactory;
     }
 
@@ -66,7 +66,6 @@ public class BaseMVPProxy<V extends IBaseView, P extends IBasePresenter<V>>
      */
     public void onResume(V rootView) {
         getPresenter();
-        Log.e("perfect-mvp", "Proxy onResume");
         if (mPresenter != null && !mIsAttchView) {
             mPresenter.onAttachView(rootView);
             mIsAttchView = true;
