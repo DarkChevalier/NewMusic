@@ -63,4 +63,5 @@ public class IBasePresenter<V extends IBaseView> {
     public V getmRootView() {
         return mRootView;
     }
+
 }

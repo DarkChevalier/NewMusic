@@ -1,6 +1,6 @@
 package com.sunzhibin.newmusic.base;
 
-import com.sunzhibin.newmusic.base.mode.BaseMode;
+import com.sunzhibin.newmusic.base.mode.BaseBean;
 import com.sunzhibin.newmusic.base.view.IBaseView;
 
 /**
@@ -13,7 +13,7 @@ import com.sunzhibin.newmusic.base.view.IBaseView;
 public interface IRequestView extends IBaseView {
     void requestLoading();
 
-    void resultSuccess(BaseMode result);
+    void resultSuccess(BaseBean result);
 
     void resultFailure(String result);
 }

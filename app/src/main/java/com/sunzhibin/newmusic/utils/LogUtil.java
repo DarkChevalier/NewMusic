@@ -1,7 +1,8 @@
 package com.sunzhibin.newmusic.utils;
 
-import com.codeest.geeknews.BuildConfig;
-import com.orhanobut.logger.Logger;
+import android.util.Log;
+
+import com.sunzhibin.newmusic.BuildConfig;
 
 /**
  * Created by codeest on 2016/8/3.
@@ -9,37 +10,37 @@ import com.orhanobut.logger.Logger;
 public class LogUtil {
 
     public static boolean isDebug = BuildConfig.DEBUG;
-    private static final String TAG = "com.codeest.geeknews";
+    private static final String TAG = "LogUtil";
 
-    public static void e(String tag, Object o) {
-        if(isDebug) {
-            Logger.e(tag, o);
+    public static void e(String tag, String o) {
+        if (isDebug) {
+            Log.e(tag, o);
         }
     }
 
-    public static void e(Object o) {
-        LogUtil.e(TAG,o);
+    public static void e(String o) {
+        LogUtil.e(TAG, o);
     }
 
-    public static void w(String tag, Object o) {
-        if(isDebug) {
-            Logger.w(tag, o);
+    public static void w(String tag, String o) {
+        if (isDebug) {
+            Log.w(tag, o);
         }
     }
 
-    public static void w(Object o) {
-        LogUtil.w(TAG,o);
+    public static void w(String o) {
+        LogUtil.w(TAG, o);
     }
 
     public static void d(String msg) {
-        if(isDebug) {
-            Logger.d(msg);
+        if (isDebug) {
+            Log.d(TAG, msg);
         }
     }
 
     public static void i(String msg) {
-        if(isDebug) {
-            Logger.i(msg);
+        if (isDebug) {
+            Log.i(TAG, msg);
         }
     }
 }

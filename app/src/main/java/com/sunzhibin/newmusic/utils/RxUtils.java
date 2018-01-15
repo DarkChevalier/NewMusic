@@ -1,8 +1,7 @@
 package com.sunzhibin.newmusic.utils;
 
-import com.sunzhibin.newmusic.base.mode.BaseMode;
-import com.sunzhibin.newmusic.model.exception.ApiException;
-
+import com.sunzhibin.newmusic.base.mode.BaseBean;
+import com.sunzhibin.newmusic.common.exception.ApiException;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
@@ -43,15 +42,15 @@ public class RxUtils {
      * @param <T>
      * @return
      */
-    public static <T> FlowableTransformer<BaseMode<T>, T> handleResult() {   //compose判断结果
-        return new FlowableTransformer<BaseMode<T>, T>() {
+    public static <T> FlowableTransformer<BaseBean<T>, T> handleResult() {   //compose判断结果
+        return new FlowableTransformer<BaseBean<T>, T>() {
             @Override
-            public Flowable<T> apply(Flowable<BaseMode<T>> httpResponseFlowable) {
-                return httpResponseFlowable.flatMap(new Function<BaseMode<T>, Flowable<T>>() {
+            public Flowable<T> apply(Flowable<BaseBean<T>> httpResponseFlowable) {
+                return httpResponseFlowable.flatMap(new Function<BaseBean<T>, Flowable<T>>() {
                     @Override
-                    public Flowable<T> apply(BaseMode<T> baseMode) {
-                        if (baseMode.getError() == 0) {
-                            return createData(baseMode.getResults());
+                    public Flowable<T> apply(BaseBean<T> baseBean) {
+                        if (baseBean.getError() == 0) {
+                            return createData(baseBean.getResults());
                         } else {
                             return Flowable.error(new ApiException("服务器返回error"));
                         }
@@ -67,7 +66,7 @@ public class RxUtils {
      * @param <T>
      * @return
      */
-    public static <T> Flowable<T> createData(final T t) {
+    private static <T> Flowable<T> createData(final T t) {
         return Flowable.create(new FlowableOnSubscribe<T>() {
             @Override
             public void subscribe(FlowableEmitter<T> emitter) throws Exception {

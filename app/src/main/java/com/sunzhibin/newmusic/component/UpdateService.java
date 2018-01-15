@@ -12,7 +12,7 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import com.sunzhibin.newmusic.model.http.IApi;
+import com.sunzhibin.newmusic.common.http.Api;
 import com.sunzhibin.newmusic.utils.ToastUtil;
 
 import java.io.File;
@@ -52,7 +52,7 @@ public class UpdateService extends Service {
     private void startDownload() {
         DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         DownloadManager.Request request = new DownloadManager.Request(
-                Uri.parse(IApi.APK_DOWNLOAD_URL));
+                Uri.parse(Api.APK_DOWNLOAD_URL));
         request.setTitle("GeekNews");
         request.setDescription("新版本下载中");
         request.setMimeType("application/vnd.android.package-archive");

@@ -5,8 +5,7 @@ package com.sunzhibin.newmusic.base;
  * @date 2017/11/17
  * @description
  */
-public class RequestMode {
-    public void interruptHttp(){
+public class RequestMode<T> {
 
-    }
+
 }

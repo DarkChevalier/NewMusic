@@ -15,13 +15,13 @@ import io.reactivex.functions.Consumer;
  * @date 2017/11/17
  * @description
  */
-public class RequestPresenter extends IBasePresenter<IRequestView> {
+public abstract class RequestPresenter extends IBasePresenter<IRequestView> {
 
-    private final RequestMode mRequestMode;
+    protected RequestMode mRequestMode;
     protected CompositeDisposable mCompositeDisposable;
 
-    public RequestPresenter() {
-        this.mRequestMode = new RequestMode();
+    public RequestPresenter(RequestMode mRequestMode) {
+        this.mRequestMode = mRequestMode;
     }
 
     @Override

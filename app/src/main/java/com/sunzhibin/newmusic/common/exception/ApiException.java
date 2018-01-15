@@ -1,4 +1,4 @@
-package com.sunzhibin.newmusic.model.exception;
+package com.sunzhibin.newmusic.common.exception;
 
 /**
  * Created by codeest on 2016/8/4.

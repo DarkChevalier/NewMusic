@@ -7,7 +7,7 @@ package com.sunzhibin.newmusic.base.mode;
  * @e-mail:
  */
 
-public class BaseMode<T> {
+public class BaseBean<T> {
     private int error;
     private T results;
 

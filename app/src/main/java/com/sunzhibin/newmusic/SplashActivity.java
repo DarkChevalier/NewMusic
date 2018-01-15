@@ -1,6 +1,13 @@
 package com.sunzhibin.newmusic;
 
+import android.widget.ImageView;
+
 import com.sunzhibin.newmusic.base.BaseAbstractActivity;
+import com.sunzhibin.newmusic.base.IRequestView;
+import com.sunzhibin.newmusic.base.factory.CreatePresenter;
+import com.sunzhibin.newmusic.base.mode.BaseBean;
+import com.sunzhibin.newmusic.base.presenter.IBasePresenter;
+import com.sunzhibin.newmusic.utils.bind.FieldView;
 
 /**
  * @author: sunzhibin
@@ -8,11 +15,13 @@ import com.sunzhibin.newmusic.base.BaseAbstractActivity;
  * @description:
  * @e-mail:
  */
-
-public class SplashActivity extends BaseAbstractActivity {
+@CreatePresenter(IBasePresenter.class)
+public class SplashActivity extends BaseAbstractActivity implements IRequestView {
+    @FieldView(R.id.iv_splash)
+    ImageView iv_splash;
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.activity_splash;
     }
 
     @Override
@@ -27,6 +36,21 @@ public class SplashActivity extends BaseAbstractActivity {
 
     @Override
     protected void initListener() {
+
+    }
+
+    @Override
+    public void requestLoading() {
+
+    }
+
+    @Override
+    public void resultSuccess(BaseBean result) {
+
+    }
+
+    @Override
+    public void resultFailure(String result) {
 
     }
 }

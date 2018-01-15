@@ -12,8 +12,8 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.codeest.geeknews.app.App;
-import com.codeest.geeknews.app.Constants;
+import com.sunzhibin.newmusic.Constants;
+import com.sunzhibin.newmusic.MainApplication;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -31,7 +31,7 @@ public class SystemUtil {
      * 检查WIFI是否连接
      */
     public static boolean isWifiConnected() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) App.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) MainApplication.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifiInfo = connectivityManager
                 .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         return wifiInfo != null;
@@ -40,7 +40,7 @@ public class SystemUtil {
      * 检查手机网络(4G/3G/2G)是否连接
      */
     public static boolean isMobileNetworkConnected() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) App.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) MainApplication.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mobileNetworkInfo = connectivityManager
                 .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         return mobileNetworkInfo != null;
@@ -49,7 +49,7 @@ public class SystemUtil {
      * 检查是否有可用网络
      */
     public static boolean isNetworkConnected() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) App.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) MainApplication.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         return connectivityManager.getActiveNetworkInfo() != null;
     }
 
@@ -114,7 +114,7 @@ public class SystemUtil {
     }
 
     public static int dp2px(float dpValue) {
-        final float scale = App.getInstance().getResources().getDisplayMetrics().density;
+        final float scale = MainApplication.getInstance().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
@@ -127,7 +127,7 @@ public class SystemUtil {
     }
 
     public static int px2dp(float pxValue) {
-        final float scale = App.getInstance().getResources().getDisplayMetrics().density;
+        final float scale = MainApplication.getInstance().getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
