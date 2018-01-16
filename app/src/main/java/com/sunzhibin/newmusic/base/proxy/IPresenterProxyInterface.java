@@ -1,14 +1,14 @@
 package com.sunzhibin.newmusic.base.proxy;
 
 import com.sunzhibin.newmusic.base.factory.IPresenterFactory;
-import com.sunzhibin.newmusic.base.presenter.IBasePresenter;
+import com.sunzhibin.newmusic.base.presenter.BasePresenter;
 import com.sunzhibin.newmusic.base.view.IBaseView;
 
 /**
  * Created by sunzhibin on 2018/1/2.
  */
 
-public interface IPresenterProxyInterface<V extends IBaseView, P extends IBasePresenter<V>> {
+public interface IPresenterProxyInterface<V extends IBaseView, P extends BasePresenter<V>> {
     /**
      * 设置创建Presenter的工厂
      *

@@ -1,7 +1,7 @@
 package com.sunzhibin.newmusic.common.http;
 
 
-import com.sunzhibin.newmusic.model.splash.SplashBean;
+import com.sunzhibin.newmusic.ui.model.splash.SplashBean;
 
 import io.reactivex.Flowable;
 import retrofit2.http.GET;

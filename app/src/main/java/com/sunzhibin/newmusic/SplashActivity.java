@@ -3,10 +3,9 @@ package com.sunzhibin.newmusic;
 import android.widget.ImageView;
 
 import com.sunzhibin.newmusic.base.BaseAbstractActivity;
-import com.sunzhibin.newmusic.base.IRequestView;
 import com.sunzhibin.newmusic.base.factory.CreatePresenter;
-import com.sunzhibin.newmusic.base.mode.BaseBean;
-import com.sunzhibin.newmusic.base.presenter.IBasePresenter;
+import com.sunzhibin.newmusic.ui.constract.SplashConstract;
+import com.sunzhibin.newmusic.ui.presenter.SplashPresenter;
 import com.sunzhibin.newmusic.utils.bind.FieldView;
 
 /**
@@ -15,10 +14,11 @@ import com.sunzhibin.newmusic.utils.bind.FieldView;
  * @description:
  * @e-mail:
  */
-@CreatePresenter(IBasePresenter.class)
-public class SplashActivity extends BaseAbstractActivity implements IRequestView {
+@CreatePresenter(SplashPresenter.class)
+public class SplashActivity extends BaseAbstractActivity<SplashConstract.ISplashView, SplashPresenter> implements SplashConstract.ISplashView {
     @FieldView(R.id.iv_splash)
     ImageView iv_splash;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_splash;
@@ -31,7 +31,8 @@ public class SplashActivity extends BaseAbstractActivity implements IRequestView
 
     @Override
     protected void initData() {
-
+        //查询封面
+        getPresenter().querySplashView();
     }
 
     @Override
@@ -40,17 +41,8 @@ public class SplashActivity extends BaseAbstractActivity implements IRequestView
     }
 
     @Override
-    public void requestLoading() {
+    public void requestSuccess(String result) {
 
-    }
-
-    @Override
-    public void resultSuccess(BaseBean result) {
-
-    }
-
-    @Override
-    public void resultFailure(String result) {
 
     }
 }

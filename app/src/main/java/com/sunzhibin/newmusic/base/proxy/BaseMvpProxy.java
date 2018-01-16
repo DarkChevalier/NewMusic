@@ -4,14 +4,14 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.sunzhibin.newmusic.base.factory.IPresenterFactory;
-import com.sunzhibin.newmusic.base.presenter.IBasePresenter;
+import com.sunzhibin.newmusic.base.presenter.BasePresenter;
 import com.sunzhibin.newmusic.base.view.IBaseView;
 
 /**
  * Created by sunzhibin on 2018/1/2.
  */
 
-public class BaseMvpProxy<V extends IBaseView, P extends IBasePresenter<V>>
+public class BaseMvpProxy<V extends IBaseView, P extends BasePresenter<V>>
         implements IPresenterProxyInterface<V, P> {
     /**
      * 获取onSaveInstanceState中bundle的key

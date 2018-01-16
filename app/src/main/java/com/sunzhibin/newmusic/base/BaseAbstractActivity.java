@@ -13,7 +13,7 @@ import android.view.WindowManager;
 
 import com.sunzhibin.newmusic.base.factory.IPresenterFactory;
 import com.sunzhibin.newmusic.base.factory.PresenterFactoryImpl;
-import com.sunzhibin.newmusic.base.presenter.IBasePresenter;
+import com.sunzhibin.newmusic.base.presenter.BasePresenter;
 import com.sunzhibin.newmusic.base.proxy.BaseMvpProxy;
 import com.sunzhibin.newmusic.base.proxy.IPresenterProxyInterface;
 import com.sunzhibin.newmusic.base.view.IBaseView;
@@ -26,7 +26,7 @@ import com.sunzhibin.newmusic.utils.bind.ViewFind;
  * @description:
  * @e-mail:
  */
-public abstract class BaseAbstractActivity<V extends IBaseView, P extends IBasePresenter<V>> extends AppCompatActivity implements IPresenterProxyInterface<V, P> {
+public abstract class BaseAbstractActivity<V extends IBaseView, P extends BasePresenter<V>> extends AppCompatActivity implements IPresenterProxyInterface<V, P>, IBaseView {
     private static final String PRESENTER_SAVE_KEY = "presenter_save_key";
     protected Handler mHandler = new Handler(Looper.getMainLooper());
     /**
@@ -107,4 +107,36 @@ public abstract class BaseAbstractActivity<V extends IBaseView, P extends IBaseP
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionReq.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
+
+    @Override
+    public void showErrorMsg(String msg) {
+
+    }
+
+    @Override
+    public void useNightMode(boolean isNight) {
+
+    }
+
+    @Override
+    public void stateError() {
+
+    }
+
+    @Override
+    public void stateEmpty() {
+
+    }
+
+    @Override
+    public void stateLoading() {
+
+    }
+
+    @Override
+    public void stateMain() {
+
+    }
+
 }

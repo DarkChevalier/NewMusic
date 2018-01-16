@@ -1,6 +1,6 @@
 package com.sunzhibin.newmusic.base.factory;
 
-import com.sunzhibin.newmusic.base.presenter.IBasePresenter;
+import com.sunzhibin.newmusic.base.presenter.BasePresenter;
 import com.sunzhibin.newmusic.base.view.IBaseView;
 
 /**
@@ -9,7 +9,7 @@ import com.sunzhibin.newmusic.base.view.IBaseView;
  * @description Presenter工厂实现类
  */
 
-public class PresenterFactoryImpl<V extends IBaseView, P extends IBasePresenter<V>> implements IPresenterFactory<V, P> {
+public class PresenterFactoryImpl<V extends IBaseView, P extends BasePresenter<V>> implements IPresenterFactory<V, P> {
     /**
      * 需要创建的Presenter的类型
      */
@@ -27,7 +27,7 @@ public class PresenterFactoryImpl<V extends IBaseView, P extends IBasePresenter<
      * @param <P>       当前要创建的Presenter类型
      * @return 工厂类
      */
-    public static <V extends IBaseView, P extends IBasePresenter<V>> PresenterFactoryImpl<V, P> createFactory(Class<?> viewClazz) {
+    public static <V extends IBaseView, P extends BasePresenter<V>> PresenterFactoryImpl<V, P> createFactory(Class<?> viewClazz) {
         CreatePresenter annotation = viewClazz.getAnnotation(CreatePresenter.class);
         Class<P> aClass = null;
         if (annotation != null) {

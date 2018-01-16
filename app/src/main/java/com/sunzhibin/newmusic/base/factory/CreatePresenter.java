@@ -1,6 +1,6 @@
 package com.sunzhibin.newmusic.base.factory;
 
-import com.sunzhibin.newmusic.base.presenter.IBasePresenter;
+import com.sunzhibin.newmusic.base.presenter.BasePresenter;
 
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
@@ -14,5 +14,5 @@ import java.lang.annotation.RetentionPolicy;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CreatePresenter {
-    Class<? extends IBasePresenter> value();
+    Class<? extends BasePresenter> value();
 }

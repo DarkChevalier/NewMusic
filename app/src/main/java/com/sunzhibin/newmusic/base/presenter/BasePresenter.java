@@ -3,13 +3,23 @@ package com.sunzhibin.newmusic.base.presenter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.sunzhibin.newmusic.base.mode.IBaseModel;
 import com.sunzhibin.newmusic.base.view.IBaseView;
+import com.sunzhibin.newmusic.component.RxBus;
+
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by sunzhibin on 2018/1/2.
  */
 
-public class IBasePresenter<V extends IBaseView> {
+public class BasePresenter<V extends IBaseView> {
+
+    protected IBaseModel mRequestMode;
+    protected CompositeDisposable mCompositeDisposable;
+
     /**
      * View 层
      */
@@ -42,7 +52,7 @@ public class IBasePresenter<V extends IBaseView> {
      * Presenter被销毁时调用
      */
     public void onDestroyPersenter() {
-
+        unSubscribe();
     }
 
     /**
@@ -62,6 +72,27 @@ public class IBasePresenter<V extends IBaseView> {
      */
     public V getmRootView() {
         return mRootView;
+    }
+
+
+    protected void unSubscribe() {
+        if (mCompositeDisposable != null) {
+            mCompositeDisposable.clear();
+        }
+    }
+
+    protected void addSubscribe(Disposable subscription) {
+        if (mCompositeDisposable == null) {
+            mCompositeDisposable = new CompositeDisposable();
+        }
+        mCompositeDisposable.add(subscription);
+    }
+
+    protected <U> void addRxBusSubscribe(Class<U> eventType, Consumer<U> act) {
+        if (mCompositeDisposable == null) {
+            mCompositeDisposable = new CompositeDisposable();
+        }
+        mCompositeDisposable.add(RxBus.getDefault().toDefaultFlowable(eventType, act));
     }
 
 }
