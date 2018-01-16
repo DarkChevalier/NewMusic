@@ -3,7 +3,7 @@ package com.sunzhibin.newmusic.utils.loadimageview;
 import android.graphics.Bitmap;
 import android.support.annotation.DrawableRes;
 
-import com.manchijie.fresh.R;
+import com.sunzhibin.newmusic.R;
 
 public class LoaderOptions {
     protected int placeholderResId;
@@ -33,9 +33,9 @@ public class LoaderOptions {
     }
 
     public static final class Builder {
-        private int placeholderResId = R.drawable.ic_placeholder;
+        private int placeholderResId = R.mipmap.ic_launcher_round;
 //        private int errorResId = R.mipmap.mine_default;
-        private int errorResId = R.drawable.ic_placeholder;
+        private int errorResId = R.mipmap.ic_launcher_round;
         private boolean isCenterCrop;
         private boolean isCenterInside;
         private Bitmap.Config config = Bitmap.Config.RGB_565;

@@ -15,7 +15,7 @@ import io.reactivex.Flowable;
 public class SplashModel implements SplashConstract.ISplashModel {
     @Override
     public Flowable<SplashBean> querySplashView() {
-        return HttpHelper.getInstance().getRetrofitServiceWwithoutBaseUrl().getSplashImageView();
+        return HttpHelper.getInstance().getRetrofitService().getSplashImageView();
     }
 
 }

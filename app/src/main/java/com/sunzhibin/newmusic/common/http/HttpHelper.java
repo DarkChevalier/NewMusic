@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -31,11 +32,7 @@ public class HttpHelper {
     }
 
     public RetrofitService getRetrofitService() {
-        return getRetrofit(true).create(RetrofitService.class);
-    }
-
-    public RetrofitService getRetrofitServiceWwithoutBaseUrl() {
-        return getRetrofit(false).create(RetrofitService.class);
+        return getRetrofit().create(RetrofitService.class);
     }
 
     private OkHttpClient getOkhttpClient() {
@@ -44,27 +41,17 @@ public class HttpHelper {
     }
 
     @NonNull
-    private Retrofit getRetrofit(boolean baseUrl) {
-        return createBuilder(baseUrl)
-//                //配置基础的url
+    private Retrofit getRetrofit() {
+        return new Retrofit.Builder()
                 .baseUrl(Api.BASE_URL)
                 //配置提交或者返回的参数的造型方式为gson
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().serializeNulls().create()))
+                // 针对rxjava2.x
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 //返回值可以使用Obserable
                 //使用https时需要配置
                 .client(getOkhttpClient())
                 .build();
-    }
-
-    private Retrofit.Builder createBuilder(boolean baseUrl) {
-        if (baseUrl) {
-            return new Retrofit
-                    .Builder().baseUrl(Api.BASE_URL);
-        } else {
-            return new Retrofit
-                    .Builder();
-        }
-
     }
 
 }

@@ -3,7 +3,6 @@ package com.sunzhibin.newmusic.ui.presenter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.sunzhibin.newmusic.base.mode.IBaseModel;
 import com.sunzhibin.newmusic.base.presenter.BasePresenter;
 import com.sunzhibin.newmusic.ui.constract.SplashConstract;
 import com.sunzhibin.newmusic.ui.model.splash.SplashBean;
@@ -19,13 +18,13 @@ import io.reactivex.functions.Function;
  * @description
  */
 public class SplashPresenter extends BasePresenter<SplashConstract.ISplashView> {
-    public SplashPresenter(IBaseModel mRequestMode) {
-        this.mRequestMode = mRequestMode;
+    public SplashPresenter() {
+        mRequestMode = new SplashModel();
     }
 
     @Override
-    public void onCreatePersenter(@Nullable Bundle savedState) {
-        super.onCreatePersenter(savedState);
+    public void onCreatePresenter(@Nullable Bundle savedState) {
+        super.onCreatePresenter(savedState);
 
     }
 

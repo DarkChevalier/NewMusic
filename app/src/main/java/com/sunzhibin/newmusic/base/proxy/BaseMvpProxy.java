@@ -52,7 +52,7 @@ public class BaseMvpProxy<V extends IBaseView, P extends BasePresenter<V>>
         if (mPresenterFactory != null) {
             if (mPresenter == null) {
                 mPresenter = mPresenterFactory.createPresenter();
-                mPresenter.onCreatePersenter(mBundle == null ? null : mBundle.getBundle(PRESENTER_KEY));
+                mPresenter.onCreatePresenter(mBundle == null ? null : mBundle.getBundle(PRESENTER_KEY));
             }
         }
         Log.e("perfect-mvp", "Proxy getMvpPresenter = " + mPresenter);

@@ -16,7 +16,6 @@ import io.reactivex.functions.Consumer;
  */
 
 public class BasePresenter<V extends IBaseView> {
-
     protected IBaseModel mRequestMode;
     protected CompositeDisposable mCompositeDisposable;
 
@@ -30,7 +29,7 @@ public class BasePresenter<V extends IBaseView> {
      *
      * @param savedState
      */
-    public void onCreatePersenter(@Nullable Bundle savedState) {
+    public void onCreatePresenter(@Nullable Bundle savedState) {
 
     }
 

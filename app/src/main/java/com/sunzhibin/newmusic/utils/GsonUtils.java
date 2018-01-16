@@ -76,7 +76,7 @@ public class GsonUtils {
             return gson.fromJson(json, cls);
         } catch (Exception e) {
             e.printStackTrace();
-            Loger.d("sunzhibin", e.getMessage());
+            Log.d("sunzhibin", e.getMessage());
 
         }
         return null;

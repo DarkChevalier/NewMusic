@@ -7,7 +7,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -26,7 +26,7 @@ import com.sunzhibin.newmusic.utils.bind.ViewFind;
  * @description:
  * @e-mail:
  */
-public abstract class BaseAbstractActivity<V extends IBaseView, P extends BasePresenter<V>> extends AppCompatActivity implements IPresenterProxyInterface<V, P>, IBaseView {
+public abstract class BaseAbstractActivity<V extends IBaseView, P extends BasePresenter<V>> extends FragmentActivity implements IPresenterProxyInterface<V, P>, IBaseView {
     private static final String PRESENTER_SAVE_KEY = "presenter_save_key";
     protected Handler mHandler = new Handler(Looper.getMainLooper());
     /**
@@ -37,15 +37,13 @@ public abstract class BaseAbstractActivity<V extends IBaseView, P extends BasePr
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setSystemBarTransparent();
         setContentView(getLayoutId());
         ViewFind.bind(this);
+        setSystemBarTransparent();
         if (savedInstanceState != null) {
             mProxy.onRestoreInstanceState(savedInstanceState.getBundle(PRESENTER_SAVE_KEY));
         }
-        initView();
         initData();
-        initListener();
     }
 
     @Override
@@ -95,11 +93,14 @@ public abstract class BaseAbstractActivity<V extends IBaseView, P extends BasePr
 
     protected abstract int getLayoutId();
 
-    protected abstract void initView();
+    protected void initView() {
+    }
 
-    protected abstract void initData();
+    protected void initData() {
+    }
 
-    protected abstract void initListener();
+    protected void initListener() {
+    }
 
     @Override
 

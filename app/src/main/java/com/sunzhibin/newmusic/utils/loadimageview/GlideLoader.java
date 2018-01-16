@@ -1,19 +1,19 @@
 package com.sunzhibin.newmusic.utils.loadimageview;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.os.Looper;
 import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.sunzhibin.newmusic.R;
 
 import java.io.File;
 
 public class GlideLoader implements ILoaderProxy {
-    private final String PICASSO_CACHE = "picasso-cache";
-//    private Context context = MainApplication.getInstance();
-
     public GlideLoader() {
 
     }
@@ -22,15 +22,16 @@ public class GlideLoader implements ILoaderProxy {
     public void loadImage(Context context, View view, String path, LoaderOptions options) {
         if (view instanceof ImageView) {
             ImageView imageView = (ImageView) view;
-            loaderOptions(context, imageView, path, options);
+
+            loadImageView(context, path, options, imageView);
         }
     }
 
     @Override
-    public void loadImage(Context context, View view, int drawable, LoaderOptions options) {
+    public void loadImage(Context context, View view, @DrawableRes int drawable, LoaderOptions options) {
         if (view instanceof ImageView) {
             ImageView imageView = (ImageView) view;
-            loaderOptions(context, imageView, drawable, options);
+            loadImageView(context, drawable, options, imageView);
         }
     }
 
@@ -38,7 +39,7 @@ public class GlideLoader implements ILoaderProxy {
     public void loadImage(Context context, View view, File file, LoaderOptions options) {
         if (view instanceof ImageView) {
             ImageView imageView = (ImageView) view;
-            loaderOptions(context, imageView, file, options);
+            loadImageView(context, file, options, imageView);
         }
     }
 
@@ -57,7 +58,9 @@ public class GlideLoader implements ILoaderProxy {
     @Override
     public void clearDiskCache(Context context) {
         // 必须在后台线程中调用，建议同时clearMemory()
-//        Glide.get(context).clearDiskCache();
+        if (Thread.currentThread() != Looper.getMainLooper().getThread()) {
+            Glide.get(context).clearDiskCache();
+        }
     }
 
     @Override
@@ -71,67 +74,57 @@ public class GlideLoader implements ILoaderProxy {
 
     }
 
-    /**
-     * 自适应宽度加载图片。保持图片的长宽比例不变，通过修改imageView的高度来完全显示图片。
-     */
-    public static void loadIntoUseFitWidth(final Context context, final String imageUrl, final ImageView imageView) {
-        LoaderOptions options = creatDetaultOptions();
-
+    private void loadImageView(Context context,
+                               String url,
+                               LoaderOptions options,
+                               ImageView imageView) {
+        Glide.with(context)
+                .load(url)
+                .apply(options == null ? createDefaultOptions() : createRequestOptions(options))
+                .into(imageView);
     }
 
-    private void loaderOptions(Context context, ImageView view, String path, LoaderOptions options) {
-        if (options == null) {
-            options = creatDetaultOptions();
+    private void loadImageView(Context context,
+                               @DrawableRes int drawable,
+                               LoaderOptions options,
+                               ImageView imageView) {
+        Glide.with(context)
+                .load(drawable)
+                .apply(options == null ? createDefaultOptions() : createRequestOptions(options))
+                .into(imageView);
+    }
+
+    private void loadImageView(Context context, File file,
+                               LoaderOptions options,
+                               ImageView imageView) {
+        Glide.with(context)
+                .load(file)
+                .apply(options == null ? createDefaultOptions() : createRequestOptions(options))
+                .into(imageView);
+    }
+
+    private RequestOptions createDefaultOptions() {
+        return new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .placeholder(R.mipmap.ic_launcher_round)
+                .error(R.mipmap.ic_launcher_round);
+    }
+
+    private RequestOptions createRequestOptions(LoaderOptions options) {
+        RequestOptions requestOptions = new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .placeholder(options.placeholderResId)
+                .error(options.errorResId);
+        if (options.isCenterCrop) {
+            requestOptions = requestOptions.centerCrop();
         }
-
-    }
-
-    private void loaderOptions(Context context, ImageView view, int resId, LoaderOptions options) {
-        if (options == null) {
-            options = creatDetaultOptions();
+        if (options.isCenterInside) {
+            requestOptions = requestOptions.centerInside();
         }
-
-    }
-
-    private void loaderOptions(Context context, ImageView view, File file, LoaderOptions options) {
-        if (options == null) {
-            options = creatDetaultOptions();
+        if (options.targetHeight != 0 && options.targetWidth != 0) {
+            requestOptions = requestOptions.override(options.targetWidth, options.targetHeight);
         }
-
+        return requestOptions;
     }
 
-    private static LoaderOptions creatDetaultOptions() {
-        LoaderOptions options = new LoaderOptions.Builder()
-//                .angle()
-                .centerCrop()
-//                .config(Bitmap.Config.RGB_565)
-//                .error()
-//                .placeholder()
-//                .resize()
-                .build();
-
-
-        return options;
-    }
-
-    /**
-     * load normal  for  circle or round img
-     *
-     * @param url
-     * @param erroImg
-     * @param emptyImg
-     * @param iv
-     * @param tag
-     */
-    public static void glideCircleLoader(Context context, String url, int erroImg, int emptyImg, ImageView iv, int tag) {
-        glideCircleLoader(context, url, erroImg, emptyImg, iv, tag, 10);
-    }
-
-    public static void glideCircleLoader(Context context, String url, int erroImg, int emptyImg, ImageView iv, int tag, int round) {
-        if (0 == tag) {
-
-        } else if (1 == tag) {
-
-        }
-    }
 }
