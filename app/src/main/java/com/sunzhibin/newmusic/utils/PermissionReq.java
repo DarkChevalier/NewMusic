@@ -8,11 +8,13 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.AppOpsManagerCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.SparseArray;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -108,7 +110,6 @@ public class PermissionReq {
         if (activity == null) {
             throw new IllegalArgumentException(mObject.getClass().getName() + " is not supported");
         }
-
         initManifestPermission(activity);
         for (String permission : mPermissions) {
             if (!sManifestPermissionSet.contains(permission)) {
@@ -118,14 +119,12 @@ public class PermissionReq {
                 return;
             }
         }
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+        if (hasPermission(activity, mPermissions)) {
             if (mResult != null) {
                 mResult.onGranted();
             }
             return;
         }
-
         List<String> deniedPermissionList = getDeniedPermissions(activity, mPermissions);
         if (deniedPermissionList.isEmpty()) {
             if (mResult != null) {
@@ -146,16 +145,20 @@ public class PermissionReq {
         if (result == null) {
             return;
         }
-
         sResultArray.remove(requestCode);
+        if (permissions.length == 0 && grantResults.length == 0) {
+            //未授权
+            result.onDenied();
 
-        for (int grantResult : grantResults) {
-            if (grantResult != PackageManager.PERMISSION_GRANTED) {
-                result.onDenied();
-                return;
+        } else {
+            for (int grantResult : grantResults) {
+                if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                    result.onDenied();
+                    return;
+                }
             }
+            result.onGranted();
         }
-        result.onGranted();
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -203,5 +206,31 @@ public class PermissionReq {
 
     private static int genRequestCode() {
         return sRequestCode.incrementAndGet();
+    }
+
+
+    /**
+     * 系统层的权限判断
+     *
+     * @param context     上下文
+     * @param permissions 申请的权限 Manifest.permission.READ_CONTACTS
+     * @return 是否有权限 ：其中有一个获取不了就是失败了
+     */
+    private static boolean hasPermission(@NonNull Context context, @NonNull List<String> permissions) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return true;
+        for (String permission : permissions) {
+            String op = AppOpsManagerCompat.permissionToOp(permission);
+            int result = AppOpsManagerCompat.noteProxyOp(context, op, context.getPackageName());
+            if (result == AppOpsManagerCompat.MODE_IGNORED) return false;
+            result = ContextCompat.checkSelfPermission(context, permission);
+            if (result != PackageManager.PERMISSION_GRANTED) return false;
+        }
+        return true;
+    }
+
+    private static boolean hasPermission(@NonNull Context context, @NonNull String... permissions) {
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.addAll(Arrays.asList(permissions));
+        return hasPermission(context, arrayList);
     }
 }

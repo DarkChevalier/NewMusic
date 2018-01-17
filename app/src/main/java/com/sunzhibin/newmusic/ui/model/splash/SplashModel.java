@@ -4,6 +4,7 @@ import com.sunzhibin.newmusic.common.http.HttpHelper;
 import com.sunzhibin.newmusic.ui.constract.SplashConstract;
 
 import io.reactivex.Flowable;
+import okhttp3.ResponseBody;
 
 /**
  * @author: sunzhibin
@@ -17,5 +18,12 @@ public class SplashModel implements SplashConstract.ISplashModel {
     public Flowable<SplashBean> querySplashView() {
         return HttpHelper.getInstance().getRetrofitService().getSplashImageView();
     }
+
+    @Override
+    public Flowable<ResponseBody> downloadFile(String url) {
+        return HttpHelper.getInstance().getRetrofitService().downloadFile(url);
+
+    }
+
 
 }

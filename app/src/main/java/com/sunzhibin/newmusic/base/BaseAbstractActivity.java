@@ -103,7 +103,6 @@ public abstract class BaseAbstractActivity<V extends IBaseView, P extends BasePr
     }
 
     @Override
-
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionReq.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -139,5 +138,6 @@ public abstract class BaseAbstractActivity<V extends IBaseView, P extends BasePr
     public void stateMain() {
 
     }
+
 
 }

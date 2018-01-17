@@ -1,8 +1,9 @@
-package com.sunzhibin.newmusic;
+package com.sunzhibin.newmusic.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.sunzhibin.newmusic.R;
 import com.sunzhibin.newmusic.base.BaseAbstractActivity;
 import com.sunzhibin.newmusic.base.factory.CreatePresenter;
 import com.sunzhibin.newmusic.base.presenter.BasePresenter;

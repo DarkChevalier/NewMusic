@@ -17,7 +17,7 @@ import io.reactivex.functions.Consumer;
 
 public class BasePresenter<V extends IBaseView> {
     protected IBaseModel mRequestMode;
-    protected CompositeDisposable mCompositeDisposable;
+    private CompositeDisposable mCompositeDisposable;
 
     /**
      * View 层
