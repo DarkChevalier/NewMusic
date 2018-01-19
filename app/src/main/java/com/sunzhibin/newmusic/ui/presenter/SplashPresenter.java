@@ -56,7 +56,7 @@ public class SplashPresenter extends BasePresenter<SplashConstract.ISplashView> 
 
     public void querySplashView() {
         if (readSplashBitmap() != null && getmRootView() != null) {
-            getmRootView().requestSuccess(splashPic);
+            getmRootView().requestFail(splashPic);
         }
         addSubscribe(((SplashModel) mRequestMode).querySplashView()
                 .compose(RxUtils.<SplashBean>rxSchedulerHelper())

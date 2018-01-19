@@ -18,7 +18,6 @@ import com.sunzhibin.newmusic.base.proxy.BaseMvpProxy;
 import com.sunzhibin.newmusic.base.proxy.IPresenterProxyInterface;
 import com.sunzhibin.newmusic.base.view.IBaseView;
 import com.sunzhibin.newmusic.utils.PermissionReq;
-import com.sunzhibin.newmusic.utils.bind.ViewFind;
 
 /**
  * @author: sunzhibin
@@ -35,31 +34,33 @@ public abstract class BaseAbstractActivity<V extends IBaseView, P extends BasePr
     private BaseMvpProxy<V, P> mProxy = new BaseMvpProxy<>(PresenterFactoryImpl.<V, P>createFactory(getClass()));
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-        ViewFind.bind(this);
         setSystemBarTransparent();
         if (savedInstanceState != null) {
             mProxy.onRestoreInstanceState(savedInstanceState.getBundle(PRESENTER_SAVE_KEY));
         }
+        initView();
         initData();
+        initListener();
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         mProxy.onResume((V) this);
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onDestroy() {
         mProxy.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
+        super.onDestroy();
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBundle(PRESENTER_SAVE_KEY, mProxy.onSaveInstanceState());
     }
@@ -82,7 +83,8 @@ public abstract class BaseAbstractActivity<V extends IBaseView, P extends BasePr
     private void setSystemBarTransparent() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // LOLLIPOP解决方案
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

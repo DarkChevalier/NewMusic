@@ -1,6 +1,7 @@
 package com.sunzhibin.newmusic.utils.bind;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.view.View;
 
 import java.lang.reflect.Field;
@@ -49,4 +50,5 @@ public class ViewFind {
             }
         }
     }
+
 }

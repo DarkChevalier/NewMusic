@@ -10,7 +10,6 @@ import com.sunzhibin.newmusic.MainApplication;
  */
 
 public class ToastUtil {
-
     private static Toast mToast;
 
     public static void shortShow(String text) {
@@ -19,5 +18,10 @@ public class ToastUtil {
         }
         mToast.setText(text);
         mToast.show();
+    }
+
+    public static void hideToast() {
+        mToast.cancel();
+        mToast = null;
     }
 }

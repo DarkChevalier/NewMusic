@@ -1,11 +1,56 @@
-<resources>
-
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!--•android:theme="@android:style/Theme.Dialog"   将一个Activity显示为能话框模式-->
+    <!--•android:theme="@android:style/Theme.NoTitleBar"  不显示应用程序标题栏-->
+    <!--•android:theme="@android:style/Theme.NoTitleBar.Fullscreen"  不显示应用程序标题栏，并全屏-->
+    <!--•android:theme="Theme.Light"  背景为白色-->
+    <!--•android:theme="Theme.Light.NoTitleBar"  白色背景并无标题栏-->
+    <!--•android:theme="Theme.Light.NoTitleBar.Fullscreen"  白色背景，无标题栏，全屏-->
+    <!--•android:theme="Theme.Black"  背景黑色-->
+    <!--•android:theme="Theme.Black.NoTitleBar"  黑色背景并无标题栏-->
+    <!--•android:theme="Theme.Black.NoTitleBar.Fullscreen"    黑色背景，无标题栏，全屏-->
+    <!--•android:theme="Theme.Wallpaper"  用系统桌面为应用程序背景-->
+    <!--•android:theme="Theme.Wallpaper.NoTitleBar"  用系统桌面为应用程序背景，且无标题栏-->
+    <!--•android:theme="Theme.Wallpaper.NoTitleBar.Fullscreen"  用系统桌面为应用程序背景，无标题栏，全屏-->
+    <!--•android:theme="Translucent"  半透明-->
+    <!--•android:theme="Theme.Translucent.NoTitleBar" 半透明、无标题栏-->
+    <!--•android:theme="Theme.Translucent.NoTitleBar.Fullscreen" 半透明、无标题栏、全屏-->
+    <!--•android:theme="Theme.Panel"-->
+    <!--•android:theme="Theme.Light.Panel"-->
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorTheme</item>
+        <item name="colorPrimaryDark">@color/colorTheme</item>
+        <item name="colorAccent">@color/colorTheme</item>
+        <item name="android:windowAnimationStyle">@style/ActivityAnimTheme</item>
+        <item name="android:fitsSystemWindows">true</item>
     </style>
 
+    <style name="ActivityAnimTheme" parent="@android:style/Animation.Activity">
+        <!-- 当我们从 A1 启动 A2 时，A2 出现在屏幕上-->
+        <item name="android:activityOpenEnterAnimation">@anim/screen_zoom_in</item>
+        <!-- 当我们从 A1 启动 A2 时，A1 从屏幕上消失-->
+        <item name="android:activityOpenExitAnimation">@anim/screen_zoom_out</item>
+        <!--当我们从 A2 退出回到 A1 时，A1 出现在屏幕上-->
+        <item name="android:activityCloseEnterAnimation">@anim/screen_zoom_in</item>
+        <!--当我们从 A2 退出回到 A1 时，A2 从屏幕上消失-->
+        <item name="android:activityCloseExitAnimation">@anim/screen_zoom_out</item>
+    </style>
+
+    <style name="NoAnimation">
+        <item name="android:activityOpenEnterAnimation">@null</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@null</item>
+
+        <item name="android:taskOpenEnterAnimation">@null</item>
+        <item name="android:taskOpenExitAnimation">@null</item>
+        <item name="android:taskCloseEnterAnimation">@null</item>
+        <item name="android:taskCloseExitAnimation">@null</item>
+
+        <item name="android:taskToFrontEnterAnimation">@null</item>
+        <item name="android:taskToFrontExitAnimation">@null</item>
+        <item name="android:taskToBackEnterAnimation">@null</item>
+        <item name="android:taskToBackExitAnimation">@null</item>
+    </style>
 </resources>

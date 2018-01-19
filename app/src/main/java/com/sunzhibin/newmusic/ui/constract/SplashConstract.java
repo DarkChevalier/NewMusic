@@ -17,6 +17,7 @@ import okhttp3.ResponseBody;
 public interface SplashConstract {
     interface ISplashView extends IBaseView {
         void requestSuccess(String result);
+        void requestFail(String result);
     }
 
     interface ISplashModel extends IBaseModel {
