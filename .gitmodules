@@ -1,0 +1,3 @@
+[submodule "library/library/smartHealthEquipment."]
+	path = library/library/smartHealthEquipment.
+	url = http://120.27.237.225/sharp-tech/sharp-tech/SmartHealthEquipment.git

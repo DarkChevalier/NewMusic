@@ -81,20 +81,22 @@ public class SplashActivity extends BaseAbstractActivity<SplashConstract.ISplash
 
     @Override
     public void requestSuccess(String result) {
-        if (iv_splash.getBackground() == null)
+        if (iv_splash.getBackground() == null) {
             ImageLoaderHelper.getInstance().loadImage(this, iv_splash, result, new LoaderOptions.Builder().build());
+        }
     }
 
     @Override
     public void requestFail(String result) {
-        if (!TextUtils.isEmpty(result))
+        if (!TextUtils.isEmpty(result)) {
             ImageLoaderHelper.getInstance().loadImage(this, iv_splash, result, new LoaderOptions.Builder().build());
-
+        }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
 
 }

@@ -24,7 +24,6 @@ public class ThreadPoolProxy {
 
     public ThreadPoolProxy(int corePoolSize, int maximumPoolSize,
                            long keepAliveTime) {
-        super();
         mCorePoolSize = corePoolSize;
         mMaximumPoolSize = maximumPoolSize;
         mKeepAliveTime = keepAliveTime;
